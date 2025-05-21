@@ -215,7 +215,7 @@ const port = process.env.PORT || 5000;
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
-      process.env.FRONTEND_URL, 
+      "https://sunshine1-one.vercel.app/", 
       "http://localhost:3000",
     ];
 
