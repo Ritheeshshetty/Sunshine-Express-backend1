@@ -142,7 +142,6 @@
 // const app = express();
 // const port = process.env.PORT || 5000;
 
-
 // const corsOptions = {
 //   origin: [
 //     process.env.FRONTEND_URL || "http://localhost:3000",
@@ -186,8 +185,6 @@
 //   console.log(`✅ Sunshine Express backend running on port ${port}`);
 // });
 
-
-
 // ***************************************************************
 
 require("dotenv").config();
@@ -210,12 +207,8 @@ const connectToMongo = require("./db");
 const app = express();
 const port = process.env.PORT || 5000;
 
-
 const corsOptions = {
-  origin: [
-    process.env.FRONTEND_URL || "http://localhost:3000",
-    
-  ],
+  origin: [process.env.FRONTEND_URL],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
