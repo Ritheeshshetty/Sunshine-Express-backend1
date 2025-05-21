@@ -212,24 +212,33 @@ const port = process.env.PORT || 5000;
 //   credentials: true,
 //   methods: ["GET", "POST", "PUT", "DELETE"],
 // };
+const allowedOrigins = [
+  "https://sunshine1-one.vercel.app",
+  "http://localhost:3000",
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      "https://sunshine1-one.vercel.app/", 
-      "http://localhost:3000",
-    ];
-
     console.log("🔍 Incoming request origin:", origin);
 
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow no origin (like curl/postman or same-origin requests)
+    if (!origin) return callback(null, true);
+
+    const isAllowed =
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/sunshine1-[\w-]+\.vercel\.app$/.test(origin); // allow preview links
+
+    if (isAllowed) {
       callback(null, true);
     } else {
-      callback(new Error("❌ Not allowed by CORS"));
+      console.error("❌ CORS blocked for origin:", origin);
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
+
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
